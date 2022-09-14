@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.apple.joongoproject.dao.MemberDao">
+	
+	<insert id="memberJoinDao">
+		INSERT INTO joongpago_membertbl (name, id, pw, gender, jumin, tel, address) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})
+	</insert>
+	
+	<select id="checkIdDao" resultType="int">
+		SELECT COUNT(*) FROM joongpago_membertbl WHERE id=#{param1}
+	</select>
+	
+	<select id="checkIdPwDao" resultType="int">
+		SELECT COUNT(*) FROM joongpago_membertbl WHERE id=#{param1} AND pw=#{param2}
+	</select>
+	<select id="memberInfoDao" resultType="com.apple.joongoproject.dto.MemberDto">
+		SELECT * FROM joongpago_membertbl WHERE id=#{param1}
+	</select>
+	<update id="infoModifyDao">	
+		UPDATE joongpago_membertbl SET pw=#{param1},tel=#{param2},bookmark=#{param3},name=#{param4},address=#{param5} WHERE id=#{param6}
+	</update>
+</mapper>	

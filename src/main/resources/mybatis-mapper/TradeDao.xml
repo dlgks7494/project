@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.apple.joongoproject.dao.TradeDao">
+	<insert id="fbwriteDao">		
+		insert into joongpago_board (num,product, trade, id, title, price,content,complete) VALUES (JOONGPAGO_BOARD_SEQ.nextval,#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, 0)
+	</insert>
+	
+	
+	<select id="fblistbuyDao" resultType="com.apple.joongoproject.dto.TradeDto">
+      SELECT t1.num ,t1.product, t1.id , t1.title , t1.price,t1.complete,t2.address,t1.pdate
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t1.trade=1 and t1.complete = 0<!-- buy=1 sell=0 -->
+	    ORDER BY t1.num DESC
+   </select>
+   	<select id="fblistsellDao" resultType="com.apple.joongoproject.dto.TradeDto">
+      SELECT t1.num ,t1.product, t1.id , t1.title , t1.price,t1.complete,t2.address	,t1.pdate
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t1.trade=0 and t1.complete = 0
+	    ORDER BY t1.num DESC
+   </select>
+	
+	<select id="fbviewDao" resultType="com.apple.joongoproject.dto.TradeDto">
+		SELECT t1.num,t1.product , t1.id , t1.title ,t1.content, t1.price,t1.complete, t1.pdate,t2.address
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id AND t1.num = #{param1}	    
+	</select>
+	
+
+	
+	<select id="fbViewTitleSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		  SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id AND t1.title LIKE '%' || #{param1} || '%' and t1.trade = 1 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	<select id="fbSellTitleSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		  SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id AND t1.title LIKE '%' || #{param1} || '%' and t1.trade = 0 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	
+	
+	<select id="fbProductSearchcombo" resultType="com.apple.joongoproject.dto.TradeDto">	
+		<!--SELECT t1.num , t1.id , t1.title , t1.price,t1.pdate,t2.address
+	    FROM FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id AND t1.product LIKE '%' || #{param1} || '%' and t1.complete =0
+	    ORDER BY t1.num DESC--> 
+	    select * from JOONGPAGO_BOARD where product like '%'|| #{param1} ||'%'	
+	</select>
+	
+	<select id="fbViewNameSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t2.id LIKE '%' || #{param1} || '%' and t1.trade = 1 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	<select id="fbSellNameSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t2.id LIKE '%' || #{param1} || '%' and t1.trade = 0 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	<select id="fbViewContentSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t1.content LIKE '%' || #{param1} || '%' and t1.trade = 1 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	<select id="fbSellContentSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t1.content LIKE '%' || #{param1} || '%' and t1.trade = 0 and t1.complete = 0
+	    ORDER BY t1.num DESC 	
+	</select>
+	<select id="fbNameSearchlist" resultType="com.apple.joongoproject.dto.TradeDto">	
+		SELECT *
+	    FROM JOONGPAGO_BOARD T1,JOONGPAGO_MEMBERTBL T2
+	    WHERE t1.id = t2.id and t2.id LIKE '%' || #{param1} || '%'
+	    ORDER BY t1.num DESC 	
+	</select>
+	<update id="fbMyboardDao">	
+		UPDATE JOONGPAGO_BOARD SET complete=1 WHERE num=#{param1}
+	</update>
+	<update id="fbMyboardDao2">	
+		UPDATE JOONGPAGO_BOARD SET complete=0 WHERE num=#{param1}
+	</update>
+	<select id ="fbcompletelist" resultType="com.apple.joongoproject.dto.TradeDto">
+		select * from JOONGPAGO_BOARD where num = #{param1}
+	</select>
+	<select id="fbselectcomDao" resultType="com.apple.joongoproject.dto.TradeDto">
+		SELECT complete FROM JOONGPAGO_board WHERE num=#{param1}
+	</select>
+	<!-- 첨부파일 SQL -->
+	<insert id="fbfileInsertDao">
+		INSERT INTO JOONGPAGO_UPLOADFILE(filenum, boardnum, filename, orifilename, fileurl, fileextension) 
+		VALUES(JOONGPAGO_UPLOADFILE_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
+	<select id="fbGetFileInfoDao" resultType="com.apple.joongoproject.dto.FileDto">
+		SELECT * FROM JOONGPAGO_UPLOADFILE WHERE boardnum=#{param1}
+	</select>
+	
+	<!-- 댓글 SQL -->
+	 <insert id="rbwriteDao">	
+		INSERT INTO JOONGPAGO_REPLYBOARD(rbnum, boardnum, rbid, rbcontent) VALUES(JOONGPAGO_REPLYBOARD_seq.nextval, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="rblistDao" resultType="com.apple.joongoproject.dto.ReplyDto">
+		SELECT * FROM JOONGPAGO_REPLYBOARD WHERE boardnum = #{param1} ORDER BY rbnum ASC
+	</select> 
+	
+	
+	
+	</mapper>
+	
