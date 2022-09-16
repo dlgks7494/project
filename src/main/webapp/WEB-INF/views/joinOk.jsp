@@ -23,11 +23,28 @@
 								<c:when test="${checkId == '0'}">
 									<c:choose>
 										<c:when test="${checkPw == '0'}">
-											<script type="text/javascript">
-												alert("${mname }님 회원가입을 축하드립니다.\n가입하신 아이디는 ${mid }입니다.");
+											<c:choose>
+												<c:when test="${checkJumin == '0'}">
+													<script type="text/javascript">
+														alert("${mname }님 회원가입을 축하드립니다.\n가입하신 아이디는 ${mid }입니다.");
 
-												location.href = "/login";
-											</script>
+														location.href = "/login";
+													</script>
+												</c:when>
+												<c:when test="${checkJumin == '1'}">
+													<script type="text/javascript">
+														alert("정확한 주민등록 번호를 입력하여 주십시오. .");
+
+														history.go(-1);
+													</script>
+												</c:when>
+												<c:otherwise>
+													<script type="text/javascript">
+														alert("주민등록 번호의 자리를 정확히 입력하여 주십시오. ");
+														history.go(-1);
+													</script>
+												</c:otherwise>
+											</c:choose>
 										</c:when>
 										<c:otherwise>
 											<script type="text/javascript">
@@ -38,8 +55,6 @@
 									</c:choose>
 
 								</c:when>
-
-
 								<c:otherwise>
 									<script type="text/javascript">
 										alert("가입하시려는 아이디는 이미 사용중입니다! 다른 아이디를 입력하세요.");//경고창 띄우기

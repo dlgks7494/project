@@ -44,7 +44,7 @@
 						</tr>
 						<tr>
 							<td><span class="content_text">주민번호 </span></td>
-							<td><input  type="text" name="mjumin"></td>
+							<td><input  type="text" name="mjumin" pattern="[0-9]+" title="숫자만 입력하여 주세요. "></td>
 						</tr>
 						<tr>
 							<td><span class="content_text">성별 </span></td>
@@ -52,7 +52,7 @@
 						</tr>
 						<tr>
 							<td><span class="content_text">전화번호 </span></td>
-							<td><input  type="text" name="mtel"></td>
+							<td><input  type="text" name="mtel" pattern="[0-9]+" title="숫자만 입력하여 주세요. "></td>
 						</tr>
 						<tr>
 							<td><span class="content_text">거래지역 </span></td>
