@@ -34,17 +34,14 @@ td {
 }
 header{
 	position: absolute;
-	margin-top: 7%;
-	margin-left: 80%;
-	width : 10%;
-	height : 170px;
+	margin-left: 67%;
+	width : 30%;
 	border:1px solid black;
-	border-radius: 10px;
-	background:#e9ecef;
+	background:#F4F2F3;
 }
 #but{
 	background:none;
-	width: 45%; height: 70px;
+	width: 30%; height: 70px;
 	border:0px;
 	transition-duration: 0.4s;
 }
@@ -62,12 +59,12 @@ header{
   	String sessionId = (String)session.getAttribute("mid");%>
 <body bgcolor="#F4F2F3" style="height: 100%;">
 	<header>
-	<div style = "height : 80px;width : 90%; text-align: center; line-height: 30px;margin-left:5%;margin-top:10px;">${MemberDto.id }<br>님 반갑습니다. </div>
-		<input id = "but" class="button" type="button" value="내 메뉴"
+	<div style = "height : 80px;width : 90%; text-align: center; line-height: 30px;margin-left:5%;margin-top:10px;"><strong style="color:#262C38;">${MemberDto.id }</strong>님 반갑습니다. <input id = "but" class="button" type="button" value="내 메뉴"
 			onclick="location.href='Myboard'"
 			style="border-right:1px solid black; margin-left:5%;"><input id = "but" class="button" type="button" value="로그아웃"
 			onclick="location.href='logout'"
-			>
+			></div>
+		
 	</header>
 	<div>
 		<table id="tablesty">
